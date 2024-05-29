@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="_layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .menu {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .menu a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .menu a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .search-form {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ccc;
+        }
+        .search-form input[type="text"] {
+            padding: 5px;
+            width: 200px;
+        }
+        .search-form button {
+            padding: 5px 10px;
+        }
+        .course-list {
+            list-style: none;
+            padding: 0;
+        }
+        .course-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            overflow: hidden;
+        }
+        .course-date {
+            float: left;
+            background-color: #ff69b4;
+            color: white;
+            padding: 5px 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            width: 100px;
+            height: auto;
+        }
+        .course-content {
+            overflow: hidden;
+        }
+        .course-item:last-child {
+            border-bottom: none;
+        }
+        /* CSS for Edit and Delete buttons */
+.course-item > div:last-child a {
+    margin-right: 5px;
+    color: #fff;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    padding: 6px 12px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.course-item > div:last-child a:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.course-item > div:last-child a:active {
+    background-color: #004fa1;
+    border-color: #004fa1;
+}
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="menu">
+        <a href="/home">Home</a>
+        <a href="/course/create">Add Course</a>
+    </div>
+    <div class="search-form">
+        <input type="text" id="search-input" placeholder="Search by course name" onkeyup="filterCourses()" />
+    </div>
+    <ul class="course-list" id="course-list">
+        <li class="course-item" th:each="course, stat : ${listcourse}">
+            <div class="course-date" th:text="${course.startDate}"></div>
+            <div class="course-content">
+                <span class="lecture-name" th:text="${course.lectureName}"></span>
+                <br>
+                <span th:text="${course.place}"></span>
+            </div>
+            <div>
+<!--                <a th:href="@{'/course/edit/' + ${stat.index}}" style="margin-right: 5px;">Edit</a>-->
+                <a th:href="@{'/course/edit/' + ${stat.index}}">Edit</a>
+
+                <a th:href="@{'/course/delete/' + ${stat.index}}" style="margin-right: 5px;">Delete</a>
+            </div>
+        </li>
+    </ul>
+    <h1>NHÓM 1</h1>
+</div>
+<script>
+    function filterCourses() {
+        let input = document.getElementById('search-input');
+        let filter = input.value.toLowerCase();
+        let courseList = document.getElementById('course-list');
+        let courses = courseList.getElementsByClassName('course-item');
+
+        for (let i = 0; i < courses.length; i++) {
+            let lectureName = courses[i].getElementsByClassName('lecture-name')[0];
+            if (lectureName) {
+                let txtValue = lectureName.textContent || lectureName.innerText;
+                if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                    courses[i].style.display = "";
+                } else {
+                    courses[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+</body>
+</html>

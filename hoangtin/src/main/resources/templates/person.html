@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Person Info</title>
+</head>
+<body>
+<h1 th:utext="${info}"></h1>
+<p>Name: <span th:text="${person.name}"></span></p>
+<p>Age: <span th:text="${person.age}"></span></p>
+<p>Sex: <span th:text="${person.sex}"></span></p>
+<p>Married: <span th:text="${person.married}"></span></p>
+<p>Create Time: <span th:text="${person.createTime}"></span></p>
+<p>Languages:</p>
+<ul>
+    <li th:each="language : ${person.language}" th:text="${language}"></li>
+</ul>
+</body>
+</html>
