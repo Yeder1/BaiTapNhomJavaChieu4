@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course</title>
+    <style>
+    </style>
+</head>
+<body>
+<h2>Edit Course</h2>
+<form action="/course/update" method="post">
+    <input type="hidden" th:field="*{id}"/> <!-- Assuming your Course class has an 'id' field -->
+    <label for="place">Place:</label>
+    <input type="text" id="place" name="place" th:value="${course.place}"/><br>
+
+    <label for="startDate">Start Date:</label>
+    <input type="text" id="startDate" name="startDate" th:value="${course.startDate}"/><br>
+
+    <label for="lectureName">Lecture Name:</label>
+    <input type="text" id="lectureName" name="lectureName" th:value="${course.lectureName}"/><br>
+
+    <input type="submit" value="Save Changes"/>
+</form>
+</body>
+</html>
